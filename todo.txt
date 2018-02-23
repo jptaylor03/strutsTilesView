@@ -1,0 +1,54 @@
+***
+*** ToDo
+***
+
+[.]	(0) Implement dynamic viewer-config.xml.
+[✔]		(a) Contents based off what is found in the (Eclipse) workspace.
+[.]		(b) Attempt removing contents of plugin /lib folder (and corresponding build path entries).
+			Possibly need to force *servlet.jar and struts*.jar to top of classpath?
+[ ] (1) Correct the plugin load error (on startup)...Possibly tied to Eclipse version?
+[ ]	(2) Correct the disposing of things (?UI?) when view is closed.
+[ ]		(a) !ENTRY org.eclipse.ui.workbench 4 2 2016-10-07 14:20:30.604
+			!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.ui.workbench".
+			!STACK 0
+				java.lang.IllegalStateException: Need an underlying widget to be able to set the input.(Has the widget been disposed?)
+					at org.eclipse.jface.viewers.ContentViewer.setInput(ContentViewer.java:279)
+					at strutstilesview.providers.MyWorkbenchEditorListener.partActivated(MyWorkbenchEditorListener.java:27)
+[ ]	(3) Correct (implement) missing actions...
+[ ]		(a) Double-click to open corresponding file in editor.
+[ ]		(b) Reload config button(s) to reload configuration.  This will also involve correcting the use of AppState (STARTUP vs RESTART vs SHUTDOWN).
+[ ]	(4) Correct the Viewer Console...
+[ ]		(a) Currently log4j.properties is not loading, which prevents CustomConsoleAppender from being used.
+[ ]		(b) Perhaps switch over to java.util.Logger if it will provide similar functionality.
+[ ]	(5) Correct Progress implementation...
+[ ]		(a) Should not display as model pop-up when RAD is loading.  Instead should only show in RAD's status bar.
+[ ]		(b) No actual progress is currently shown.  Also, progress amounts need to be tuned accordingly.
+[ ]		(c) Messages do not change appropriately.
+[ ]	(6) Correct use of the Model...
+[ ]		(a) Instead of using populateTree(), we s/b able to perform a tree.setData()...
+[ ]		(b) ...Adjust model implementation to return appropriate TreeItem(s) for a specific SimpleTreeNode.
+[ ]		(c)	[Q] Can we have the view load lazily?  Perhaps only load initial depth of 1, then other info is loaded as/when needed.
+			[A] Probably not as this would break current filtering.
+[ ]	(7) Wish List...
+[ ]		(a) Listen for Eclipse builds and update model/view in realtime.
+[ ]		(b) Maintain history and allow easy navigation thru it with (browser-like) Forward and Back buttons.
+[ ]		(c) Model and View s/b separated.  Before we combined them to reduce memory usage, but it's not the right way to go.  See (d)
+[ ]		(d) Implement listeners, so when a new file gains focus, and the file is...
+[ ]			+ "struts-config*.xml" --> Switch to Action Forwards   tab and filter by that specific config file.
+[ ]			+ "tiles-defs*.xml"    --> Switch to Tiles Definitions tab and filter by that specific config file.
+[ ]			+ Action Class         --> Switch to Action Mappings   tab and filter by that specific action class.
+[ ]			+ Action Form          --> Switch to Action Form       tab and filter by that specific action form.
+[ ]		(e) Visual representation of the ENTIRE flow of the application (including html buttons to action paths, those action paths to action class, etc).
+[ ]			+ ?Add to existing views/Create a new view?
+[ ]			+ (Hierarchical) Display that follows EVERY path to its destination...
+				- Action Forward
+					+ Tiles Definition
+						- JSP
+							+ HTML Form
+								- Action Path
+									+ ...
+							+ HTML Controls
+								- Action Path
+									+ ...
+					+ Action Path
+						- ...
